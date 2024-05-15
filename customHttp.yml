@@ -1,0 +1,33 @@
+customHeaders:
+  - pattern: '/'
+    headers:
+      - key: 'Strict-Transport-Security'
+        value: 'max-age=31536000; includeSubDomains'
+      - key: 'X-Frame-Options'
+        value: 'SAMEORIGIN'
+      - key: 'Cache-Control'
+        value: 'public, max-age=0, s-maxage=300, must-revalidate'
+  - pattern: '/imgs/**/*'
+    headers:
+      - key: 'Strict-Transport-Security'
+        value: 'max-age=31536000; includeSubDomains'
+      - key: 'X-Frame-Options'
+        value: 'SAMEORIGIN'
+      - key: 'Cache-Control'
+        value: 'public, max-age=30, s-maxage=300, stale-while-revalidate'
+  - pattern: '/_next/static/**/*'
+    headers:
+      - key: 'Strict-Transport-Security'
+        value: 'max-age=31536000; includeSubDomains'
+      - key: 'X-Frame-Options'
+        value: 'SAMEORIGIN'
+      - key: 'Cache-Control'
+        value: 'public, max-age=31536000, s-maxage=31536000, immutable'
+  - pattern: '/favicon.svg'
+    headers:
+      - key: 'Strict-Transport-Security'
+        value: 'max-age=31536000; includeSubDomains'
+      - key: 'X-Frame-Options'
+        value: 'SAMEORIGIN'
+      - key: 'Cache-Control'
+        value: 'public, max-age=300, s-maxage=86400, stale-while-revalidate'

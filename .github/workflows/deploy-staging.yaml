@@ -1,0 +1,48 @@
+name: Deploy App To Staging
+
+on:
+  push:
+    branches: ['stage']
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: npx open-next@0.9.3 build
+
+      - name: AWS credentials Setting
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload _next to AWS S3
+        run: |
+          aws s3 cp .open-next/assets/_next/static/ "s3://${{ secrets.STAGING_AWS_BUCKET }}/_next/static/" --acl bucket-owner-full-control --recursive --cache-control \'public,max-age=31536000,immutable\'  --exclude ".git/*"
+
+      - name: Upload assets to AWS S3
+        run: |
+          aws s3 cp .open-next/assets/ "s3://${{ secrets.STAGING_AWS_BUCKET }}" --acl bucket-owner-full-control --recursive --cache-control \'public,max-age=0,s-maxage=31536000,must-revalidate\' --exclude ".open-next/_next/static/*" --exclude ".git/*"
+
+      - name: Packing of lambda function(server function)
+        run: cd .open-next/server-function && zip -r -9 ../../server-function.zip .
+
+      - name: Update lambda function(server function)
+        run: aws lambda update-function-code --function-name ${{ secrets.STAGING_AWS_LAMBDA_SERVER_FUNCTION }} --zip-file fileb://server-function.zip
+
+      - name: Packing of lambda function(image optimization function)
+        run: cd .open-next/image-optimization-function && zip -r -9 ../../image-optimization-function.zip .
+
+      - name: Update lambda function(image optimization function)
+        run: aws lambda update-function-code --function-name ${{ secrets.STAGING_AWS_LAMBDA_IMAGE_OPTIMIZATION_FUNCTION }} --zip-file fileb://image-optimization-function.zip
+
+      - name: Cache Invalidation
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.STAGING_AWS_DISTRIBUTION_ID }} --paths "/*"

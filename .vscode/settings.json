@@ -1,0 +1,44 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/*.log": true,
+    "**/.next": true,
+    "**/.github": true,
+    "**/.husky": true,
+    "**/.yarn": true,
+    "**/.babelrc": true,
+    "**/.editorconfig": true,
+    "**/.eslintignore": true,
+    "**/.yarnrc.yml": true,
+    "**/commitlint.config.js": true,
+    "**/next-env.d.ts": true,
+    "**/.vscode": true,
+    "**/.gitignore": true,
+    "tsconfig.json": true,
+    ".eslintrc.js": true,
+    "build": true,
+    "dist": true,
+    "customHttp.yml": true,
+    ".prettierrc": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
