@@ -1,35 +1,28 @@
-## Why use NextJS-Template?
+# Web3 Template
+This is a template for creating applications using Next.js 13 (pages directory) and Mui5.x
 
-1. Nextjs
 
-2.  `.github` 
+## Technologies Used
+- [Next.js 14](https://nextjs.org/docs/getting-started)
+- [NextUI v2](https://nextui.org/)
+- [Viem v2](https://viem.sh/)
+- [Wagmi v2](https://wagmi.sh/)
+- [connectkit](https://docs.family.co/connectkit#connectkit)
 
-2. `.husky`  
 
-3. `.vscode`  
+## How to Use
 
-4. `.prettierrc`
+### Install dependencies
 
-5. `.eslintrc`  
+You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `yarn`:
 
-6. `Google analytics` [Need to configure `code`]
+```bash
+yarn install
+```
 
-7. `Alias path: @/*` 
+### Run the development server
 
-8. `Webpack SVGR`
+```bash
+yarn run dev
+```
 
-9. `sentry` [Need to configure `SENTRY_DSN`] 
-
-10. `<Toast />` and `<Table />` 
-
-11. `robots.txt` && `sitemap.xml` 
- 
-12. `github workfolow`
-
-13. `favicon.svg`
-
-14. `404 page`
-
-15. `Mui Themes` 
-
-16. `Web3 Wagmi/Viem/ConnectKit`
